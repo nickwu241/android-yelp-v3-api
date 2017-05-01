@@ -1,7 +1,9 @@
 package com.nwu.yelpapi;
 
 import com.nwu.yelpapi.pojo.AccessToken;
-import com.sun.istack.internal.NotNull;
+
+import java.io.IOException;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -12,8 +14,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
-
-import java.io.IOException;
 
 public class YelpV3APIProvider {
    //---------------------------------------------------------------------------
@@ -26,7 +26,7 @@ public class YelpV3APIProvider {
    private final String client_secret;
 
    //---------------------------------------------------------------------------
-   public YelpV3APIProvider(@NotNull String client_id, @NotNull String client_secret) {
+   public YelpV3APIProvider(String client_id, String client_secret) {
       yelpAuth = new Retrofit.Builder()
             .baseUrl(API_HOST)
             .addConverterFactory(GsonConverterFactory.create())
