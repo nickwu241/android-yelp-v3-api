@@ -24,9 +24,9 @@ public class JavaYelpAPISample {
       assert (CLIENT_ID != null && CLIENT_SECRET != null);
 
       final YelpV3APIProvider factory = new YelpV3APIProvider(CLIENT_ID, CLIENT_SECRET);
-      final AccessToken accessToken = factory.getAccessToken();
+      final AccessToken accessToken = factory.getAccessToken().execute().body();
 
-      final YelpV3API yelp = factory.getAPI(accessToken);
+      final YelpV3API yelp = factory.getAPI(accessToken.access_token);
 
       // Search API
       final HashMap<String, String> params = new HashMap<String, String>();

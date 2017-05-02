@@ -36,13 +36,12 @@ public class YelpV3APIProvider {
    }
 
    //---------------------------------------------------------------------------
-   public AccessToken getAccessToken() throws IOException {
-      Call<AccessToken> call = yelpAuth.getToken(GRANT_TYPE, client_id, client_secret);
-      return call.execute().body();
+   public Call<AccessToken> getAccessToken() {
+      return yelpAuth.getToken(GRANT_TYPE, client_id, client_secret);
    }
 
    //---------------------------------------------------------------------------
-   public YelpV3API getAPI(final AccessToken accessToken) {
+   public YelpV3API getAPI(final String accessToken) {
       if (accessToken == null) {
          return null;
       }
@@ -52,7 +51,7 @@ public class YelpV3APIProvider {
             Request request =
                   chain.request()
                        .newBuilder()
-                       .header("Authorization", "Bearer " + accessToken.access_token)
+                       .header("Authorization", "Bearer " + accessToken)
                        .build();
 
             return chain.proceed(request);
