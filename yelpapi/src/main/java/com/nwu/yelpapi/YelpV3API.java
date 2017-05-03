@@ -4,13 +4,14 @@ import com.nwu.yelpapi.pojo.AutocompleteResponse;
 import com.nwu.yelpapi.pojo.Business;
 import com.nwu.yelpapi.pojo.ReviewResponse;
 import com.nwu.yelpapi.pojo.SearchResponse;
+
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
-
-import java.util.Map;
 
 public interface YelpV3API {
    String SEARCH_PATH = "/v3/businesses/search";

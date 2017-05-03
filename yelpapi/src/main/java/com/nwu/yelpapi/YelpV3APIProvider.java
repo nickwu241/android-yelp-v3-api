@@ -21,16 +21,24 @@ public class YelpV3APIProvider {
    private static final String TOKEN_PATH = "/oauth2/token";
    private static final String GRANT_TYPE = "client_credentials";
 
+   private final OkHttpClient httpClient;
+   private final GsonConverterFactory gsonConverterFactory;
    private final YelpOAuth2 yelpAuth;
    private final String client_id;
    private final String client_secret;
 
    //---------------------------------------------------------------------------
    public YelpV3APIProvider(String client_id, String client_secret) {
+      httpClient = new OkHttpClient();
+      gsonConverterFactory = GsonConverterFactory.create();
+
       yelpAuth = new Retrofit.Builder()
             .baseUrl(API_HOST)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build().create(YelpOAuth2.class);
+            .addConverterFactory(gsonConverterFactory)
+            .client(httpClient)
+            .build()
+            .create(YelpOAuth2.class);
+
       this.client_id = client_id;
       this.client_secret = client_secret;
    }
@@ -46,13 +54,12 @@ public class YelpV3APIProvider {
          return null;
       }
 
-      OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+      OkHttpClient client = httpClient.newBuilder().addInterceptor(new Interceptor() {
          public Response intercept(Chain chain) throws IOException {
-            Request request =
-                  chain.request()
-                       .newBuilder()
-                       .header("Authorization", "Bearer " + accessToken)
-                       .build();
+            Request request = chain.request()
+                  .newBuilder()
+                  .header("Authorization", "Bearer " + accessToken)
+                  .build();
 
             return chain.proceed(request);
          }
@@ -60,9 +67,10 @@ public class YelpV3APIProvider {
 
       return new Retrofit.Builder()
             .baseUrl(API_HOST)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(gsonConverterFactory)
             .client(client)
-            .build().create(YelpV3API.class);
+            .build()
+            .create(YelpV3API.class);
    }
 
    //---------------------------------------------------------------------------

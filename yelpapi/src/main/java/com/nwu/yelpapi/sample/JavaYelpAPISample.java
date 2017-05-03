@@ -3,11 +3,16 @@ package com.nwu.yelpapi.sample;
 import com.google.gson.Gson;
 import com.nwu.yelpapi.YelpV3API;
 import com.nwu.yelpapi.YelpV3APIProvider;
-import com.nwu.yelpapi.pojo.*;
-import retrofit2.Call;
+import com.nwu.yelpapi.pojo.AccessToken;
+import com.nwu.yelpapi.pojo.AutocompleteResponse;
+import com.nwu.yelpapi.pojo.Business;
+import com.nwu.yelpapi.pojo.ReviewResponse;
+import com.nwu.yelpapi.pojo.SearchResponse;
 
 import java.io.IOException;
 import java.util.HashMap;
+
+import retrofit2.Call;
 
 public class JavaYelpAPISample {
    private static final String CLIENT_ID = null; // ENTER CLIENT_ID
