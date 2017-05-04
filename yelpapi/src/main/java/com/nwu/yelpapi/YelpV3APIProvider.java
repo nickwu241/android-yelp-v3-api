@@ -3,6 +3,7 @@ package com.nwu.yelpapi;
 import com.nwu.yelpapi.pojo.AccessToken;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -29,7 +30,12 @@ public class YelpV3APIProvider {
 
    //---------------------------------------------------------------------------
    public YelpV3APIProvider(String client_id, String client_secret) {
-      httpClient = new OkHttpClient();
+      httpClient = new OkHttpClient.Builder()
+            .connectTimeout(3, TimeUnit.SECONDS)
+            .readTimeout(3, TimeUnit.SECONDS)
+            .writeTimeout(3, TimeUnit.SECONDS)
+            .build();
+
       gsonConverterFactory = GsonConverterFactory.create();
 
       yelpAuth = new Retrofit.Builder()
