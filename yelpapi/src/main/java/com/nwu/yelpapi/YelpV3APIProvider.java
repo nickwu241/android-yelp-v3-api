@@ -31,9 +31,9 @@ public class YelpV3APIProvider {
    //---------------------------------------------------------------------------
    public YelpV3APIProvider(String client_id, String client_secret) {
       httpClient = new OkHttpClient.Builder()
-            .connectTimeout(3, TimeUnit.SECONDS)
-            .readTimeout(3, TimeUnit.SECONDS)
-            .writeTimeout(3, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(15, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
             .build();
 
       gsonConverterFactory = GsonConverterFactory.create();
